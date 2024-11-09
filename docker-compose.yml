@@ -41,7 +41,7 @@ services:
     networks:
       - flashcard-network
     ports:
-      - "3000:3000"
+      - "3000:80"
 
 volumes:
   db_data:

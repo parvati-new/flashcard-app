@@ -2,18 +2,20 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import mysql.connector
 import math
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-# Database connection settings
+
 db_config = {
-    'host': 'db',  # Use 'db' because Docker Compose service name will be 'db'
-    'user': 'flashcard_user',
-    'password': 'your_password',
-    'database': 'flashcards_db',
-    'port': 3306
+    'host': os.getenv('DB_HOST', 'localhost'),
+    'user': os.getenv('DB_USER', 'default_user'),
+    'password': os.getenv('DB_PASSWORD', 'default_password'),
+    'database': os.getenv('DB_NAME', 'default_db'),
+    'port': int(os.getenv('DB_PORT', 3306))
 }
+
 
 # Connect to the database
 def get_db_connection():

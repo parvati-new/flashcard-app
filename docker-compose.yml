@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: flashcard-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: flashcards_db
+      MYSQL_USER: flashcard_user
+      MYSQL_PASSWORD: your_password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - flashcard-network
+
+  backend:
+    build: ./backend
+    container_name: flashcard-backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3306:3306"
+    depends_on:
+      - db
+    networks:
+      - flashcard-network
+
+  frontend:
+    build: ./frontend
+    container_name: flashcard-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - flashcard-network
+
+volumes:
+  db_data:
+
+networks:
+  flashcard-network:

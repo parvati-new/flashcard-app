@@ -10,11 +10,16 @@ COPY requirements.txt .
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install the MySQL client
+RUN apt-get update && apt-get install -y default-mysql-client
+
 # Copy the rest of the code into the container
 COPY . .
 
 # Expose port 5000 for the Flask app
-EXPOSE 5000
+ENV PORT=${BACKEND_PORT} 
+
+EXPOSE $PORT
 
 # Make wait-for-db.sh executable
 RUN chmod +x wait-for-db.sh

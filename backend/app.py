@@ -11,7 +11,7 @@ db_config = {
     'host': 'db',  # Use 'db' because Docker Compose service name will be 'db'
     'user': 'flashcard_user',
     'password': 'your_password',
-    'database': 'flashcards_db'
+    'database': 'flashcards_db',
     'port': 3306
 }
 

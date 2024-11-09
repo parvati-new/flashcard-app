@@ -1,26 +1,14 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+#!/bin/bash
+# wait-for-db.sh
 
-# Set the working directory in the container
-WORKDIR /app
+host="$1"
+shift
+cmd="$@"
 
-# Copy the requirements file into the container
-COPY requirements.txt .
+until mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASSWORD" -e 'SELECT 1' &> /dev/null; do
+  echo "MySQL is unavailable - sleeping"
+  sleep 2
+done
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of the code into the container
-COPY . .
-
-# Install the MySQL client
-RUN apt-get update && apt-get install -y default-mysql-client
-
-# Expose port 5000 for the Flask app
-EXPOSE 5000
-
-# Make the wait script executable
-RUN chmod +x wait-for-db.sh
-
-# Run the application using the wait script
-CMD ["./wait-for-db.sh", "db", "gunicorn", "-b", "0.0.0.0:5000", "app:app"]
+echo "MySQL is up - executing command"
+exec $cmd

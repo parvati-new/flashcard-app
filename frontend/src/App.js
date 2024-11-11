@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Flashcard from './Flashcard';
+import AddFlashcardForm from './components/AddFlashcardForm/AddFlashcardForm';
+import ShuffleToggle from './components/ShuffleToggle/ShuffleToggle';
+import CategoryFilter from './components/CategoryFilter/CategoryFilter';
+import PaginationControls from './components/PaginationControls/PaginationControls';
+import FlashcardsContainer from './components/FlashcardsContainer/FlashcardsContainer';
 import './App.css';
 
 function App() {
@@ -11,19 +15,27 @@ function App() {
   const [totalPages, setTotalPages] = useState(1);
   const [shuffle, setShuffle] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchFlashcards();
   }, []);
 
   const fetchFlashcards = () => {
+    setLoading(true);
+    setError(null);
     axios
       .get(`${process.env.REACT_APP_API_URL}/flashcards?limit=1000`)
       .then((response) => {
         setFlashcards(response.data.flashcards);
         setTotalPages(Math.ceil(response.data.flashcards.length / limit));
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setError('Failed to fetch flashcards. Please try again later.');
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -114,69 +126,33 @@ function App() {
   return (
     <div className="App">
       <h1>Flashcards</h1>
-      {/* Add Flashcard Form */}
-      <div className="add-flashcard-form">
-        <input
-          type="text"
-          name="question"
-          placeholder="Question"
-          value={newFlashcard.question}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="answer"
-          placeholder="Answer"
-          value={newFlashcard.answer}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="category"
-          placeholder="Category"
-          value={newFlashcard.category}
-          onChange={handleInputChange}
-        />
-        <button onClick={addFlashcard}>Add Flashcard</button>
-      </div>
-      {/* Shuffle Toggle */}
-      <div className="shuffle-toggle">
-        <label>
-          <input
-            type="checkbox"
-            checked={shuffle}
-            onChange={handleShuffleChange}
+      {error && <div className="error-message">{error}</div>}
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : (
+        <>
+          <AddFlashcardForm
+            newFlashcard={newFlashcard}
+            handleInputChange={handleInputChange}
+            addFlashcard={addFlashcard}
           />
-          Shuffle Flashcards
-        </label>
-      </div>
-      {/* Category Filter */}
-      <div className="category-filter">
-        <select onChange={handleCategoryChange} value={selectedCategory}>
-          <option value="">All Categories</option>
-          <option value="Geography">Geography</option>
-          <option value="Mathematics">Mathematics</option>
-          {/* Add more categories as needed */}
-        </select>
-      </div>
-      {/* Pagination Controls */}
-      <div className="pagination">
-        <button onClick={handlePrevPage} disabled={page === 1}>
-          Previous
-        </button>
-        <span>
-          Page {page} of {totalPages}
-        </span>
-        <button onClick={handleNextPage} disabled={page === totalPages}>
-          Next
-        </button>
-      </div>
-      {/* Flashcards */}
-      <div className="flashcards-container">
-        {currentPageFlashcards.map((card) => (
-          <Flashcard key={card.id} card={card} onDelete={deleteFlashcard} />
-        ))}
-      </div>
+          <ShuffleToggle shuffle={shuffle} handleShuffleChange={handleShuffleChange} />
+          <CategoryFilter
+            selectedCategory={selectedCategory}
+            handleCategoryChange={handleCategoryChange}
+          />
+          <PaginationControls
+            page={page}
+            totalPages={totalPages}
+            handleNextPage={handleNextPage}
+            handlePrevPage={handlePrevPage}
+          />
+          <FlashcardsContainer
+            currentPageFlashcards={currentPageFlashcards}
+            deleteFlashcard={deleteFlashcard}
+          />
+        </>
+      )}
     </div>
   );
 }

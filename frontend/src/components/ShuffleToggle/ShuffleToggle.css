@@ -1,0 +1,9 @@
+/* Shuffle and Filter Styling */
+.shuffle-toggle, .category-filter {
+    margin: 20px;
+    text-align: center;
+  }
+  
+  .shuffle-toggle label, .category-filter select {
+    font-size: 1.2em;
+  }

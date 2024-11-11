@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import './Flashcard.css';
 
 function Flashcard({ card, onDelete }) {
   const [flip, setFlip] = useState(false);
@@ -27,4 +29,5 @@ function Flashcard({ card, onDelete }) {
     </div>
   );
 }
+
 export default Flashcard;

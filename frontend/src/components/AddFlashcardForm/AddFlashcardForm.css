@@ -1,0 +1,18 @@
+/* Form Styling */
+.add-flashcard-form input {
+    margin: 5px;
+    padding: 10px;
+  }
+  
+  .add-flashcard-form button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-flashcard-form button:hover {
+    background-color: #007acc;
+    color: white;
+  }
+  

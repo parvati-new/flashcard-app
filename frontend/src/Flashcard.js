@@ -14,12 +14,17 @@ function Flashcard({ card, onDelete }) {
       onClick={() => setFlip(!flip)}
     >
       <div className="front">
-        {card.question}
+        <div className="content">
+          {card.question}
+        </div>
         <button onClick={handleDelete}>Delete</button>
       </div>
-      <div className="back">{card.answer}</div>
+      <div className="back">
+        <div className="content">
+          {card.answer}
+        </div>
+      </div>
     </div>
   );
 }
-
 export default Flashcard;

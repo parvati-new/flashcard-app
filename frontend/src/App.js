@@ -15,7 +15,7 @@ function App() {
   const limit = 20;
   const [totalPages, setTotalPages] = useState(1);
   const [shuffle, setShuffle] = useState(false);
-  const categories = ['All Categories', 'Geography', 'Mathematics'];
+  const [categories, setCategories] = useState(['All Categories']);
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -27,6 +27,7 @@ function App() {
 
   useEffect(() => {
     fetchFlashcards();
+    fetchCategories();
   }, []);
 
   const fetchFlashcards = () => {
@@ -43,6 +44,15 @@ function App() {
         setError('Failed to fetch flashcards. Please try again later.');
       })
       .finally(() => setLoading(false));
+  };
+
+  const fetchCategories = () => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/categories`)
+      .then((response) => {
+        setCategories(['All Categories', ...response.data.categories]);
+      })
+      .catch((error) => console.error('Error fetching categories:', error));
   };
 
   useEffect(() => {
@@ -102,11 +112,8 @@ function App() {
     axios
       .post(`${process.env.REACT_APP_API_URL}/flashcards`, newFlashcard)
       .then((response) => {
-        const updatedFlashcards = [
-          ...flashcards,
-          { ...newFlashcard, id: response.data.id },
-        ];
-        setFlashcards(updatedFlashcards);
+        fetchFlashcards();
+        fetchCategories();
         setNewFlashcard({ question: '', answer: '', category: '' });
         setPage(1);
       })

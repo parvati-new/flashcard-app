@@ -110,5 +110,21 @@ def delete_flashcard(id):
 
     return jsonify({'message': 'Flashcard deleted successfully'})
 
+# Get all unique categories
+@app.route('/categories', methods=['GET'])
+def get_categories():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    query = "SELECT DISTINCT category FROM flashcards WHERE category != '' ORDER BY category"
+    cursor.execute(query)
+    
+    categories = [category[0] for category in cursor.fetchall()]
+    
+    cursor.close()
+    conn.close()
+    
+    return jsonify({'categories': categories})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

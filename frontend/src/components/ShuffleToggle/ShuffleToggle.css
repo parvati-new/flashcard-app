@@ -9,9 +9,9 @@
   }
 
 .shuffle-toggle {
-  margin: 1rem auto;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
-  padding: 0.5rem;
 }
 
 .shuffle-toggle label {

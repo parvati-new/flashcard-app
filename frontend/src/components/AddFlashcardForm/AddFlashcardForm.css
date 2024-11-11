@@ -1,12 +1,59 @@
 /* Form Styling */
+.add-flashcard-wrapper {
+  max-width: 600px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.toggle-form-btn {
+  width: 100%;
+  padding: 12px 20px;
+  cursor: pointer;
+  border: 2px solid #6C63FF;
+  border-radius: 5px;
+  background-color: white;
+  color: #6C63FF;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.toggle-form-btn:hover {
+  background-color: #6C63FF;
+  color: white;
+}
+
 .add-flashcard-form {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 600px;
   width: 90%;
-  margin: 20px auto 1rem auto;
+  margin: 0 auto;
+}
+
+.add-flashcard-form.expanded {
+  height: auto;
+  opacity: 1;
+  margin: 20px auto 0 auto;  /* Changed from 1rem to 0 */
   padding: 20px;
+  border: 1px solid #6C63FF;
+  border-radius: 5px;
+}
+
+.form-content {
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.expanded .form-content {
+  opacity: 1;
 }
 
 .add-flashcard-form input,
@@ -46,7 +93,6 @@
 @media (max-width: 480px) {
   .add-flashcard-form {
     width: 95%;
-    padding: 10px;
   }
 
   .add-flashcard-form input {

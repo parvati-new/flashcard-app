@@ -5,13 +5,19 @@ import './PaginationControls.css';
 function PaginationControls({ page, totalPages, handleNextPage, handlePrevPage }) {
   return (
     <div className="pagination">
-      <button onClick={handlePrevPage} disabled={page === 1}>
+      <button 
+        onClick={handlePrevPage} 
+        disabled={page <= 1 || totalPages === 0}
+      >
         Previous
       </button>
       <span>
-        Page {page} of {totalPages}
+        Page {totalPages === 0 ? 0 : page} of {totalPages}
       </span>
-      <button onClick={handleNextPage} disabled={page === totalPages}>
+      <button 
+        onClick={handleNextPage} 
+        disabled={page >= totalPages || totalPages === 0}
+      >
         Next
       </button>
     </div>

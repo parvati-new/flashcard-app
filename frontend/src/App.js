@@ -5,6 +5,7 @@ import ShuffleToggle from './components/ShuffleToggle/ShuffleToggle';
 import CategoryFilter from './components/CategoryFilter/CategoryFilter';
 import PaginationControls from './components/PaginationControls/PaginationControls';
 import FlashcardsContainer from './components/FlashcardsContainer/FlashcardsContainer';
+import Footer from './components/Footer/Footer';
 import './App.css';
 
 function App() {
@@ -14,9 +15,15 @@ function App() {
   const limit = 20;
   const [totalPages, setTotalPages] = useState(1);
   const [shuffle, setShuffle] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const categories = ['All Categories', 'Geography', 'Mathematics'];
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    console.log(`Selected category: ${category}`);
+};
 
   useEffect(() => {
     fetchFlashcards();
@@ -41,7 +48,7 @@ function App() {
   useEffect(() => {
     let displayedFlashcards = [...flashcards];
 
-    if (selectedCategory) {
+    if (selectedCategory && selectedCategory !== 'All Categories') {
       displayedFlashcards = displayedFlashcards.filter(
         (card) => card.category === selectedCategory
       );
@@ -64,8 +71,8 @@ function App() {
     setPage(1);
   };
 
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
     setPage(1);
   };
 
@@ -138,8 +145,10 @@ function App() {
           />
           <ShuffleToggle shuffle={shuffle} handleShuffleChange={handleShuffleChange} />
           <CategoryFilter
-            selectedCategory={selectedCategory}
-            handleCategoryChange={handleCategoryChange}
+            label="Filter by Category"
+            options={categories}
+            selectedOption={selectedCategory}
+            onOptionSelect={handleCategoryChange}
           />
           <PaginationControls
             page={page}
@@ -153,6 +162,7 @@ function App() {
           />
         </>
       )}
+      <Footer />
     </div>
   );
 }

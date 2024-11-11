@@ -7,3 +7,23 @@
   .shuffle-toggle label, .category-filter select {
     font-size: 1.2em;
   }
+
+.shuffle-toggle {
+  margin: 1rem auto;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.shuffle-toggle label {
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.shuffle-toggle input[type="checkbox"] {
+  margin-right: 8px;
+  width: 18px;
+  height: 18px;
+}

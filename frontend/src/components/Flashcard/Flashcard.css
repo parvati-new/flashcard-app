@@ -1,105 +1,133 @@
 .flashcard {
-    width: clamp(250px, calc(100% - 1rem), 400px);
-    height: clamp(160px, 25vh, 200px);
-    perspective: 1000px;
-    cursor: pointer;
-    margin: 0 auto;
-    position: relative;
-    justify-self: center;
-  }
-  
-  /* Responsive adjustments */
-  @media screen and (max-width: 768px) {
-    .flashcard {
-      width: clamp(220px, calc(100% - 1rem), 350px);
-      height: clamp(140px, 20vh, 180px);
-    }
-  }
-  
-  @media screen and (max-width: 480px) {
-    .flashcard {
-      width: clamp(200px, calc(100% - 1rem), 320px);
-      height: clamp(130px, 18vh, 160px);
-    }
-  }
-  .flashcard:hover {
-    transform: translateY(-5px);
-  }
-  
-  /* Flashcard Face Styling */
-  .flashcard .front, .flashcard .back {
-    position: absolute;
+  width: 280px;
+  height: 180px;
+  perspective: 1000px;
+  cursor: pointer;
+  position: relative;
+  margin: 0 auto;
+  justify-self: center;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 599px) {
+  .flashcard {
     width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    transition: all 0.6s ease;
-    padding: 15px;
-    border-radius: 10px;
-    box-sizing: border-box;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: #2c3e50;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
+    max-width: 320px;
+    height: 184px; /* Increased from 160px by 15% */
   }
-  
-  .flashcard .back {
-    transform: rotateY(180deg);
+}
+
+@media screen and (max-width: 768px) {
+  .flashcard {
+    width: clamp(220px, calc(100% - 1rem), 350px);
+    height: clamp(140px, 20vh, 180px);
   }
-  
-  .flashcard.flip .front {
-    transform: rotateY(180deg);
+}
+
+@media screen and (max-width: 480px) {
+  .flashcard {
+    width: clamp(200px, calc(100% - 1rem), 320px);
+    height: clamp(150px, 21vh, 184px); /* Increased from 130px, 18vh, 160px by ~15% */
   }
-  
-  .flashcard.flip .back {
-    transform: rotateY(0);
-  }
-  
-  /* Content Styling */
-  .flashcard .content {
-    max-width: 90%;
-    max-height: 80%;
-    font-size: 1.1em;
-    line-height: 1.5;
-    overflow-y: auto;
-    padding-right: 10px;
-    text-align: left;
-  }
-  
-  /* Scrollbar Styling */
-  .flashcard .content::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .flashcard .content::-webkit-scrollbar-thumb {
-    background-color: rgba(155, 155, 155, 0.5);
-    border-radius: 4px;
-  }
-  
-  /* Button in Flashcard */
-  .flashcard button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px; /* Add right positioning */
-    padding: 6px 12px; /* Reduced padding */
-    border: none;
-    border-radius: 15px;
-    background: rgba(22, 19, 88, 0.8);
-    color: white;
-    font-size: 0.85em;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    z-index: 2; /* Ensure button stays above content */
-  }
-  
-  .flashcard button:hover {
-    background: #190ccd;
-    transform: scale(1.02); /* Subtle scale */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
+}
+
+.flashcard:hover {
+  transform: translateY(-5px);
+}
+
+/* Flashcard Face Styling */
+.flashcard .front, .flashcard .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+  padding: 1rem;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  background-color: #FFB6C1;
+  color: #333333;
+}
+
+.flashcard .back {
+  transform: rotateY(180deg);
+}
+
+.flashcard.flip .front {
+  transform: rotateY(180deg);
+}
+
+.flashcard.flip .back {
+  transform: rotateY(0);
+}
+
+/* Alternating card colors */
+.flashcard:nth-child(4n) .front, .flashcard:nth-child(4n) .back {
+  background-color: #FFB6C1;
+}
+
+.flashcard:nth-child(4n+1) .front, .flashcard:nth-child(4n+1) .back {
+  background-color: #FFDAC1;
+}
+
+.flashcard:nth-child(4n+2) .front, .flashcard:nth-child(4n+2) .back {
+  background-color: #E2F0CB;
+}
+
+.flashcard:nth-child(4n+3) .front, .flashcard:nth-child(4n+3) .back {
+  background-color: #C7CEEA;
+}
+
+/* Content Styling */
+.flashcard .content {
+  max-width: 90%;
+  max-height: 80%;
+  font-size: 1.1em;
+  line-height: 1.5;
+  overflow-y: auto;
+  padding-right: 10px;
+  text-align: left;
+}
+
+/* Scrollbar Styling */
+.flashcard .content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.flashcard .content::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 4px;
+}
+
+/* Button in Flashcard */
+.flashcard button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px; /* Add right positioning */
+  padding: 6px 12px; /* Reduced padding */
+  border: none;
+  border-radius: 15px;
+  background: #6C63FF;
+  color: white;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2; /* Ensure button stays above content */
+}
+
+.flashcard button:hover {
+  background: #FF9AA2;
+  transform: scale(1.02); /* Subtle scale */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

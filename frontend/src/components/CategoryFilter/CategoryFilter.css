@@ -1,23 +1,96 @@
+/* CategoryFilter.css */
+
 .category-filter {
-  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
 }
 
-.category-filter select {
-  padding: 8px 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: white;
+.custom-dropdown {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;  /* Reduced from 20px auto */
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
   cursor: pointer;
-  min-width: 200px;
+  background-color: #FFFFFF;
+  border: 1px solid #6C63FF;
+  color: #333333;
+  border-radius: 5px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
-.category-filter select:hover {
-  border-color: #999;
+.dropdown-arrow {
+  font-size: 0.8em;
+  margin-left: 8px;
+  color: #6C63FF;
+  transition: transform 0.2s ease;
 }
 
-.category-filter select:focus {
-  outline: none;
-  border-color: #666;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+.dropdown-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 2px); /* Adjust for border width */
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #F5F5F5;
+  color: #6C63FF;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .custom-dropdown {
+      max-width: 90%;  /* Changed from calc(100% - 30px) */
+      margin: 15px auto;  /* Reduced margin for mobile */
+  }
+  
+  .dropdown-menu {
+      width: 100%;
+  }
+}
+
+/* Tablet specific adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .custom-dropdown {
+      max-width: 80%;  /* Changed from calc(100% - 40px) */
+      margin: 20px auto;
+  }
+  
+  .dropdown-menu {
+      width: 100%;
+  }
 }

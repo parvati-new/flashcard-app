@@ -133,6 +133,11 @@ This app uses Docker Compose to manage both the frontend, backend, and MySQL dat
   docker-compose down
   ```
 
+## Screens
+![Desktop View](images/Desktop.png)
+![Tablet View](images/Tablet.png)
+![Mobile View](images/Mobile.png)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
